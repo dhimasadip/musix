@@ -1,5 +1,6 @@
 import React from 'react'
 import fetching from '../hooks/fetching';
+import musicNotes from '../assets/music-notes.png'
 
 export default (props) => {
     const [data, youtube] = fetching()
@@ -24,16 +25,24 @@ export default (props) => {
                             { recommended.tracks.map((data, i) => {
                                 return( 
                                 <li className="list-group-item bg-dark" key={i}>
-                                    <a type="button" onClick={() => youtube(`${data.artists[0].name} - ${data.name}`)}>
-                                        <span className="text-muted">{data.artists[0].name}</span>
-                                        <span className="text-light"> - </span>{data.name}
+                                    <a type="button" className="d-flex" 
+                                        onClick={() => youtube(`${data.artists[0].name} ${data.name}`)}
+                                    >
+                                        <div className="mr-3">
+                                            <img src={musicNotes}></img>
+                                        </div>                                
+                                        <div>
+                                            <span className="">{data.name}</span>
+                                            <br />
+                                            <span className="text-white-50">{data.artists[0].name}</span>
+                                        </div>
                                     </a>
                                 </li>)
                             })}
                         </ul>
                     }
                     {
-                        !recommended.tracks || recommended.tracks.length < 1 && <h6>Not Available</h6>
+                        !recommended.tracks && <h6>Not Available</h6>
                     }
                 </div>
             </div>

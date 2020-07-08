@@ -1,11 +1,16 @@
+@import url('https://fonts.googleapis.com/css2?family=Merienda+One&display=swap');
+
 body {
   background-color: #2d3436;
   color: #27ae60;
 }
 
+.marienda {
+  font-family: 'Merienda One', cursive !important;
+}
 
 .scrollbar {
-  height: 65vh !important;
+  height: 77vh !important;
   overflow: auto !important;
 }
 
@@ -28,4 +33,15 @@ body {
 /* Handle on hover */
 .scrollbar::-webkit-scrollbar-thumb:hover {
   background: #27ae5fc7; 
+}
+
+.centered {
+  position: absolute;
+  top: 80%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.cursor-pointer {
+  cursor: pointer !important;
 }

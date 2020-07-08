@@ -1,7 +1,7 @@
 import React from 'react';
 export default (props) => {
     return (
-        <div className="mt-5">
+        <div className="">
             
             { props.tracks.length > 0 && 
                 <>
@@ -9,7 +9,7 @@ export default (props) => {
                 </>
             }
             
-            <ul className="list-group">
+            <ul className="list-group scrollbar">
                 {props.tracks.map((el, i) => {
                     const artist = new RegExp(props.keyword, 'gi')
                     if (!el.name.match(artist)) {

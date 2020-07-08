@@ -2,3 +2,30 @@ body {
   background-color: #2d3436;
   color: #27ae60;
 }
+
+
+.scrollbar {
+  height: 65vh !important;
+  overflow: auto !important;
+}
+
+.scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+
+/* Track */
+.scrollbar::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey; 
+  border-radius: 10px;
+}
+ 
+/* Handle */
+.scrollbar::-webkit-scrollbar-thumb {
+  background: #1b7741; 
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+.scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #27ae5fc7; 
+}

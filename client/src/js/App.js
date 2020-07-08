@@ -26,36 +26,38 @@ export default () => {
   }
 
   return (
-    <div className="mt-5 container-fluid">
-      <h1 className=" text-center">Musix</h1>
-      <div className="row mt-5">
-
-        <div className="col-3 ">
-          <Recommendations />
+    <div id="app">
+      <div className="mt-3 container-fluid">
+        <h1 className=" text-center">Musix</h1>
+        <div className="d-flex flex-column align-items-center">
+          <h6>search artist</h6>
+          <form onSubmit={search}>
+            <div className="form-group d-flex">
+              <input className="form-control" type="text" value={artist} onChange={keyword} />
+              <button type="submit" className="btn btn-success text-light">
+                <img src={iconSearch} alt="search" />
+              </button>
+            </div>
+          </form>
         </div>
+        <div className="row ">
 
-        <div className="col-6 ">
-          <div className="d-flex flex-column align-items-center">
-            <h6>search artist</h6>
-            <form onSubmit={search}>
-              <div className="form-group d-flex">
-                <input className="form-control" type="text" value={artist} onChange={keyword} />
-                <button type="submit" className="btn btn-success text-light">
-                  <img src={iconSearch} alt="search" />
-                </button>
-              </div>
-            </form>
+          <div className="col-3 ">
+            <Recommendations />
           </div>
-          <FindSong
-            keyword={artist}
-            tracks={tracks}
-          />
-        </div>
 
-        <div className="col-3">
-          <NewRelease
-            newRelease={newReleases}
-          ></NewRelease>
+          <div className="col-6 ">
+            <FindSong
+              keyword={artist}
+              tracks={tracks}
+            />
+          </div>
+
+          <div className="col-3">
+            <NewRelease
+              newRelease={newReleases}
+            ></NewRelease>
+          </div>
         </div>
       </div>
     </div>

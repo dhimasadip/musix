@@ -1,26 +1,19 @@
 import React from 'react';
 import fetching from '../hooks/fetching';
-export default (props) => {
-    const [data, search] = fetching()
 
-    const openYoutube = (keyword) => {
-        search(keyword)
-        setInterval(() => {
-            if(data.url) {
-                window.open(data.url, '_blank')
-            }
-        }, 1500)
-    }
+export default (props) => {
+    const [data, youtube] = fetching()
 
     return (
         <div >
             <h4 className="text-light">New Releases</h4>
-            <ul className="list-group">
+            <ul className="list-group scrollbar">
                 { props.newRelease.albums && props.newRelease.albums.items.map((data, i) => {
                     return (
                         <li className="list-group-item bg-dark" key={i}>
-                            <a type="button" onClick={() => openYoutube(`${data.artists[0].name} - ${data.name}`)}>
-                                {data.artists[0].name} - {data.name}
+                            <a type="button" onClick={() => youtube(`${data.artists[0].name} - ${data.name}`)}>
+                                <span className="text-muted">{data.artists[0].name}</span>
+                                <span className="text-light"> - </span>{data.name}
                             </a>
                         </li>
                     )

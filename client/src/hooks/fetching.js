@@ -8,7 +8,7 @@ export default (url) => {
             headers: {
                 Accept: 'application/json',
                 "Content-Type": 'application/json',
-                Authorization: 'Bearer BQBsWdZNGYj94rrIoLOpKwNQXDSyok8HbYgnFeiQktx8p7nbeHle8h5Nc5PZ4i5QnW33a5xFsR4FkmKcIBjgh-miIOhXnxmaR4AFqzezlm8LVmS2xOQ7kJ8Qtl4EuJNHWqbHr3kalpX2tJ_jngDty9C2OBG8PA6-1WMuFHr2ijCUQcr_ewXNdj4QWHFin87c0pT-v5JfR5iPSda3qLMk7-ujxuKPe44PBKHlhCz15wyP-y8vP7wPaxiBRi_6ETLPACzJ_xF5UQCs'
+                Authorization: 'Bearer BQBEc3N3wiCbaqxtE-ywmjO_OVcMsBJ-OS7DSJqoUiCHZuwDWfhHqx2S4U3mmOjxKpSEW0oM1z21vZaez2KrAQm03HxK-qvCnOtgaxJTTV7fZOXZlN-LBn6lmKXpio_UN9wdo4XWUPVPJon6WwVbAqlflFqeAibynePctF_h8F00sveEf5SXCcbQC2mK2pVXmi5ZBbhuu6747ozupme8dBMtvJL1y0GXkEQeaG4DBdMfEq-5flAYTroeQnYeISQ7QU7QA-_td99y'
             }
         })
         .then(res => {
@@ -19,6 +19,7 @@ export default (url) => {
         })
         .catch(console.log)
     }, [])
+
 
     const youtubeSearch = (keyword) => {
         keyword = keyword.replace(/ /gi, '%2520')
@@ -34,6 +35,7 @@ export default (url) => {
         })
         .then(res => {
             setData(res.items[0])
+            window.open(res.items[0].url, '_blank')
         })
         .catch(console.log)
 

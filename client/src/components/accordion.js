@@ -1,7 +1,8 @@
 import React from 'react'
 import fetching from '../hooks/fetching';
-export default (props) => {
 
+export default (props) => {
+    const [data, youtube] = fetching()
     const [recommended] = fetching(`https://api.spotify.com/v1/recommendations?limit=10&market=ID&seed_genres=${props.genre}`)
 
     return (
@@ -21,7 +22,13 @@ export default (props) => {
                         recommended.tracks && recommended.tracks.length > 0 &&
                         <ul className="list-group">
                             { recommended.tracks.map((data, i) => {
-                                return <li className="list-group-item bg-dark" key={i}>{data.artists[0].name} - {data.name}</li>
+                                return( 
+                                <li className="list-group-item bg-dark" key={i}>
+                                    <a type="button" onClick={() => youtube(`${data.artists[0].name} - ${data.name}`)}>
+                                        <span className="text-muted">{data.artists[0].name}</span>
+                                        <span className="text-light"> - </span>{data.name}
+                                    </a>
+                                </li>)
                             })}
                         </ul>
                     }

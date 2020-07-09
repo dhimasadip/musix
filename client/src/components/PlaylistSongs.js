@@ -1,17 +1,20 @@
 import React, { useEffect } from 'react'
-import fetching from '../hooks/fetching'
 import { useParams, Link } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { youtubeSearch } from '../store/actions/YoutubeSearch'
 import musicNotes from '../assets/music-notes.png'
 import heart from '../assets/heart.png'
+import { getSong } from '../store/actions/getCategory'
 
-export default (props) => {
+export default () => {
     const { playlistId, id } = useParams()
     const dispatch = useDispatch()
-    const [{items,name}, youtube, b, c, getPlaylistSong] = fetching()
+
+    const songs = useSelector(state => state.categoryReducer.songs)
+    const playlistName = useSelector(state => state.categoryReducer.playlistName)
 
     useEffect(() => {
-        getPlaylistSong(`${playlistId}`)
+        dispatch(getSong(playlistId))
     }, [playlistId])
 
     const addToFav = (song) => {
@@ -33,14 +36,14 @@ export default (props) => {
                     <li className="breadcrumb-item active">
                         <Link to={`/category/${id}`}>{id}</Link>
                     </li>
-                    <li className="breadcrumb-item active" aria-current="page">{name}</li>
+                    <li className="breadcrumb-item active" aria-current="page">{playlistName}</li>
                 </ol>
             </nav>
             {
-                items &&
+                songs.length > 0 &&
                 <div className="row row-cols-1 row-cols-md-3 scrollbar">
                     {
-                        items.map((el,i) => {
+                        songs.map((el,i) => {
                             return (
                                 <div className="col mb-4" key={i}>
                                     <div 
@@ -48,7 +51,7 @@ export default (props) => {
                                         
                                     >
                                         <img src={el.track.album.images[1].url} className="card-img-top cursor-pointer"
-                                            onClick={() => youtube(`${el.track.artists[0].name} ${el.track.name}`)}
+                                            onClick={() => dispatch(youtubeSearch(`${el.track.artists[0].name} ${el.track.name}`))}
                                         ></img>
                                         <div className="d-flex p-2">
                                             <div className="ml-2 mr-2">
@@ -73,7 +76,7 @@ export default (props) => {
                 </div>
             }
             {
-                !items && <h3 className="text-center text-secondary">Server offline</h3>
+                !songs.length > 0 && <h3 className="text-center text-secondary">Server offline</h3>
             }
         </div>
         

@@ -1,21 +1,18 @@
 import React from 'react';
+import { Switch, Route } from 'react-router-dom';
 import NewRelease from '../components/NewRelease'
 import Recommendations from '../components/Recommendations'
-import fetching from '../hooks/fetching';
 import Categories from '../components/Categories';
 import CategoryPlaylist from '../components/CategoryPlaylist';
 import PlaylistSongs from '../components/PlaylistSongs';
 import MyFavorite from '../components/MyFavorite';
-import {BrowserRouter as Router,Switch,Route} from 'react-router-dom';
 import FindSong from '../components/findSong';
 
 export default () => {
-    const [newReleases] = fetching('https://api.spotify.com/v1/browse/new-releases?country=id')
 
     return (
 
         <div className="container-fluid">
-            
             <div className="row mt-3">
                 <div className="col-3 ">
                     <Recommendations />
@@ -40,7 +37,7 @@ export default () => {
                     </Switch>
                 </div>
                 <div className="col-3">
-                    <NewRelease newRelease={newReleases} />
+                    <NewRelease />
                 </div>
             </div>
         </div>

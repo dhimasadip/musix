@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import fetching from '../hooks/fetching';
+import React from 'react';
 import heart from '../assets/heart.png'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
+import { youtubeSearch } from '../store/actions/YoutubeSearch'
 
 export default () => {
-    const [data, youtube] = fetching()
     const songs = useSelector(state => state.favoriteReducer.songs)
+    const dispatch = useDispatch()
 
     return (
         <div >
@@ -15,7 +15,7 @@ export default () => {
                     return (
                         <li className="list-group-item bg-dark" key={i}>
                             <a  type="button" className="d-flex" 
-                                onClick={() => youtube(`${el.track.artists[0].name} ${el.track.name}`)}
+                                onClick={() => dispatch(youtubeSearch(`${el.track.artists[0].name} ${el.track.name}`))}
                             >
                                 <div className="mr-3 d-flex align-items-center">
                                     <img src={heart}></img>

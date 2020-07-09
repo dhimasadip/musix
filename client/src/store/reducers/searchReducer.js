@@ -8,7 +8,7 @@ export default (state = initialState, action) => {
         case 'SEARCH_ARTIST':
             return {
                 ...state,
-                songs: state.songs.concat(action.payload.songs),
+                songs: action.payload.songs,
                 artist: action.payload.artist
             }
         default:

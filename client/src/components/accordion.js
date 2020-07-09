@@ -1,10 +1,19 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import fetching from '../hooks/fetching';
 import musicNotes from '../assets/music-notes.png'
+import { useDispatch, useSelector } from 'react-redux';
+import { youtubeSearch } from '../store/actions/YoutubeSearch'
+import { getRecommendation } from '../store/actions/getRecommendations';
 
 export default (props) => {
-    const [data, youtube] = fetching()
     const [recommended] = fetching(`https://api.spotify.com/v1/recommendations?limit=10&market=ID&seed_genres=${props.genre}`)
+    const dispatch = useDispatch()
+    // const recommendations = useSelector(state => state.recommendationReducer.recommendations)
+
+    // useEffect(() => {
+    //     dispatch(getRecommendation(`${props.genre}`))
+    // }, [])
+    // console.log(recommendations)
 
     return (
         <div className="card bg-dark">
@@ -26,7 +35,7 @@ export default (props) => {
                                 return( 
                                 <li className="list-group-item bg-dark" key={i}>
                                     <a type="button" className="d-flex" 
-                                        onClick={() => youtube(`${data.artists[0].name} ${data.name}`)}
+                                        onClick={() => dispatch(youtubeSearch(`${data.artists[0].name} ${data.name}`))}
                                     >
                                         <div className="mr-3">
                                             <img src={musicNotes}></img>

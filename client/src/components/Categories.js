@@ -1,12 +1,16 @@
 
-import React from 'react'
-import fetching from '../hooks/fetching'
+import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import { useSelector, useDispatch } from 'react-redux'
+import { getCategory } from '../store/actions/getCategory'
 
 export default () => {
-
-    const [{ categories }] = fetching('https://api.spotify.com/v1/browse/categories?country=ID&offset=0&limit=20')
-    const [data, yt, playlist] = fetching()
+    const categories = useSelector(state => state.categoryReducer.categories)
+    const dispatch = useDispatch()
+    
+    useEffect(() => {
+        dispatch(getCategory())
+    }, [])
 
     return (
         <div>
@@ -16,14 +20,14 @@ export default () => {
                 </ol>
             </nav>
             {
-                categories &&
+                categories.length > 0 &&
                 <div className="row row-cols-1 row-cols-md-3 scrollbar">
                     {
-                        categories.items.map((el,i) => {
+                        categories.map((el,i) => {
                             return (
                                 <div className="col mb-4" key = {i}>
                                     <Link to ={{pathname: `/category/${el.id}`, state: {name: el.name}}}>
-                                        <div className="card" onClick={() => playlist(`${el.id}`)}>
+                                        <div className="card">
                                             <img src={el.icons[0].url} className="card-img-top"></img>
                                             <div className="centered">
                                                 <h6 className="text-light text-center">{el.name}</h6>
@@ -38,7 +42,7 @@ export default () => {
                 </div>
             }
             {
-                !categories && <h3 className="text-center text-secondary">Server offline</h3>
+                !categories.length > 0 && <h3 className="text-center text-secondary">Server offline</h3>
             }
         </div>
 

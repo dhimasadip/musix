@@ -1,17 +1,19 @@
 import React, { useEffect } from 'react'
-import fetching from '../hooks/fetching'
 import { useParams, useRouteMatch, Link } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { getPlaylist } from '../store/actions/getCategory'
 
 
-export default (props) => {
+export default () => {
     const { id } = useParams()
     const match = useRouteMatch()
-    const [{playlists, name}, a,b, playlist] = fetching()
     const beginning = new RegExp('https://api.spotify.com/v1/playlists/')
+    const playlists = useSelector(state => state.categoryReducer.playlists)
+    const categoryName = useSelector(state => state.categoryReducer.categoryName)
+    const dispatch = useDispatch()
 
-    // console.log(props)
     useEffect(() => {
-        playlist(`${id}`)
+        dispatch(getPlaylist(id))
     }, [])
     
     return (
@@ -21,14 +23,14 @@ export default (props) => {
                     <li className="breadcrumb-item">
                         <Link to="/">Category</Link>
                     </li>
-                    <li className="breadcrumb-item active">{name}</li>
+                    <li className="breadcrumb-item active">{categoryName}</li>
                 </ol>
             </nav>
             {
-               playlists &&
+               playlists.length > 0 &&
                 <div className="row row-cols-1 row-cols-md-3 scrollbar">
                     {
-                        playlists.items.map((el,i) => {
+                        playlists.map((el,i) => {
                             return (
                                 <div className="col mb-4" key={i}>
                                     <Link to={`${match.url}/${el.tracks.href.replace(beginning, '').split('/')[0]}`}>
@@ -43,7 +45,7 @@ export default (props) => {
                 </div>
             }
             {
-                !playlists && <h3 className="text-center text-secondary">Server offline</h3>
+                !playlists.length > 0 && <h3 className="text-center text-secondary">Server offline</h3>
             } 
         </div>
     )

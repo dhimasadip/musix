@@ -9,30 +9,13 @@ export const getRecommendation = (genre) => {
             }
         })
         const data = await fetchData.json()
+
         dispatch({
             type: 'GET_RECOMMENDATIONS',
             payload: {
+                genre,
                 recommendations: data.tracks
             }
         })
-        // fetch(`https://api.spotify.com/v1/recommendations?limit=10&market=ID&seed_genres=${genre}`, {
-        //     headers: {
-        //         Accept: 'application/json',
-        //         "Content-Type": 'application/json',
-        //         Authorization: token
-        //     }
-        // })
-        // .then(res => {
-        //     return res.json()
-        // })
-        // .then(res => {
-        //     dispatch({
-        //         type: 'GET_RECOMMENDATIONS',
-        //         payload: {
-        //             recommendations: res.tracks
-        //         }
-        //     })
-        // })
-        // .catch(console.log)
     }
 }

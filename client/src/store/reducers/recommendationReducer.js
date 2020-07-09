@@ -1,11 +1,16 @@
 const initialState = {
-    recommendations: []
+    recommendations: {}
 }
 
 export default (state = initialState, action) => {
     switch (action.type) {
         case 'GET_RECOMMENDATIONS':
-            return {...state, recommendations: action.payload.recommendations}
+            const newState = {
+                ...state, recommendations:{
+                ...state.recommendations,
+                [action.payload.genre]: action.payload.recommendations}}
+
+            return newState
         default:
             return state
     }

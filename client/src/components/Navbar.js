@@ -18,12 +18,8 @@ export default () => {
       </div>
       <div className="mt-2 w-25 pl-5">
         <div className="d-flex align-items-center justify-content-around">
-          <Link to="/">
-            <a type="button" className="text-light border-bottom pb-1">Home</a>
-          </Link>
-          <Link to="/my-favorite">
-            <a type="button" className="text-light border-bottom pb-1">My Favorite</a>
-          </Link>
+          <Link to="/" className="text-light border-bottom pb-1">Home</Link>
+          <Link to="/my-favorite" className="text-light border-bottom pb-1">My Favorite</Link>
           <a type="button" className="btn btn-outline-dark text-light border border-light">ID</a>
         </div>
       </div>

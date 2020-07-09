@@ -1,15 +1,27 @@
 import React, { useEffect } from 'react'
 import fetching from '../hooks/fetching'
 import { useParams, Link } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
 import musicNotes from '../assets/music-notes.png'
+import heart from '../assets/heart.png'
 
 export default (props) => {
     const { playlistId, id } = useParams()
+    const dispatch = useDispatch()
     const [{items,name}, youtube, b, c, getPlaylistSong] = fetching()
 
     useEffect(() => {
         getPlaylistSong(`${playlistId}`)
-    }, [])
+    }, [playlistId])
+
+    const addToFav = (song) => {
+        dispatch({
+            type: 'ADD_FAVORITE',
+            payload: {
+                song
+            }
+        })
+    }
 
     return (
         <div>
@@ -32,10 +44,12 @@ export default (props) => {
                             return (
                                 <div className="col mb-4" key={i}>
                                     <div 
-                                        className="card bg-transparent shadow border border-light h-100 cursor-pointer"
-                                        onClick={() => youtube(`${el.track.artists[0].name} ${el.track.name}`)}
+                                        className="card d-flex flex-column justify-content-between bg-transparent shadow border border-light h-100"
+                                        
                                     >
-                                        <img src={el.track.album.images[1].url} className="card-img-top"></img>
+                                        <img src={el.track.album.images[1].url} className="card-img-top cursor-pointer"
+                                            onClick={() => youtube(`${el.track.artists[0].name} ${el.track.name}`)}
+                                        ></img>
                                         <div className="d-flex p-2">
                                             <div className="ml-2 mr-2">
                                                 <img src={musicNotes}></img>
@@ -45,6 +59,11 @@ export default (props) => {
                                                 <br />
                                                 <span className="text-white-50">{el.track.artists[0].name}</span>
                                             </div>
+                                        </div>
+                                        <div className="text-center mb-2">
+                                            <img className="cursor-pointer" src={heart}
+                                                onClick={() => addToFav(el)}
+                                            ></img>
                                         </div>
                                     </div>
                                 </div>

@@ -1,6 +1,6 @@
 export const youtubeSearch = (keyword) => {
     keyword = keyword.replace(/ /gi, '%2520')
-    return (dispatch, getState) => {
+    return () => {
         fetch(`https://youtube-search1.p.rapidapi.com/${keyword}`, {
             "method": "GET",
             "headers": {

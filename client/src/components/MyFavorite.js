@@ -8,7 +8,7 @@ export default () => {
     const dispatch = useDispatch()
 
     return (
-        <div >
+        <div role="listFav">
             <h4 className="text-light text-center">My Favorites</h4>
             <ul className="list-group scrollbar">
                 { songs.length > 0 && songs.map((el, i) => {
